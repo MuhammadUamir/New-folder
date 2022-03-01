@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- <link rel="stylesheet" href="style.css" /> -->
+  </head>
+  <body>
+    <h2 style="text-align: center">CV Data</h2>
+
+    <script type="text/javascript">
+      var cvData = {
+        firstName: "Muhammad",
+        lastName: "Umair",
+        email: "umair@gmail.com",
+        contact: "03335507890",
+        objective: "i'm a software developer .....",
+        Education: [
+          {
+            certificateName: "SSC",
+            startDate: 2010,
+            endDate: 2012,
+          },
+          {
+            certificateName: "HSSC",
+            startDate: 2013,
+            endDate: 2015,
+          },
+          {
+            certificateName: "BSCS",
+            startDate: 2015,
+            endDate: 2019,
+          },
+        ],
+        skills: ["HTML", "CSS", "PHP"],
+      };
+
+      //let main_div = document.createElement("div");
+
+      var nameElem = document.createElement("p");
+      var nameHead = document.createElement("span");
+      var nameContant = document.createElement("span");
+
+      nameElem.setAttribute("id", "CvData");
+      nameElem.style.textAlign = "center";
+      nameContant.innerText = cvData.firstName + " " + cvData.lastName;
+      nameHead.innerText = "Name: ";
+
+      nameElem.appendChild(nameHead);
+      nameElem.appendChild(nameContant);
+      document.body.appendChild(nameElem);
+      //cvDataElem.appendChild();
+
+      var emailElem = document.createElement("p");
+      var emailHead = document.createElement("span");
+      var email = document.createElement("span");
+      emailElem.setAttribute("id", "CvData");
+      emailElem.style.textAlign = "center";
+      email.innerText = cvData.email;
+      emailHead.innerText = "Email: ";
+      emailElem.appendChild(emailHead);
+      emailElem.appendChild(email);
+      document.body.appendChild(emailElem);
+
+      var contactElem = document.createElement("p");
+      var contactHead = document.createElement("span");
+      var contactNo = document.createElement("span");
+      contactElem.setAttribute("id", "CvData");
+      contactElem.style.textAlign = "center";
+      contactNo.innerText = cvData.contact;
+      contactHead.innerText = "Contact: ";
+      contactElem.appendChild(contactHead);
+      contactElem.appendChild(contactNo);
+      document.body.appendChild(contactElem);
+
+      var objectiveElem = document.createElement("p");
+      var objectiveHead = document.createElement("span");
+      var objective = document.createElement("span");
+      objectiveElem.setAttribute("id", "CvData");
+      objectiveElem.style.textAlign = "center";
+      objective.innerText = cvData.objective;
+      objectiveHead.innerText = "Objective: ";
+      objectiveElem.appendChild(objectiveHead);
+      objectiveElem.appendChild(objective);
+      document.body.appendChild(objectiveElem);
+
+      let educations = cvData.Education;
+      var eduElem = document.createElement("div");
+      //eduElem.classList.add('')
+
+      eduElem.setAttribute("id", "CvData");
+      eduElem.style.textAlign = "center";
+      for (var i = 0; i < educations.length; i++) {
+        var education = educations[i];
+        let eduHead = document.createElement("p");
+        let educationContent = document.createElement("p");
+        let startDate = document.createElement("span");
+        let endDate = document.createElement("span");
+
+        //console.log(education.certificateName);
+        eduHead.innerText = education.certificateName;
+        startDate.innerText = education.startDate;
+        endDate.innerText = education.endDate;
+        eduElem.appendChild(eduHead);
+        eduElem.appendChild(educationContent);
+        educationContent.appendChild(startDate);
+        educationContent.appendChild(endDate);
+      }
+      document.body.appendChild(eduElem);
+
+      //var sElm = document.createElement("div");
+      let skHead = document.createElement("p");
+      skHead.innerText = "Skills:";
+      document.body.append(skHead);
+      let Skills = cvData.skills;
+      var skElem = document.createElement("ul");
+      skElem.classList.add("row");
+      skElem.setAttribute("id", "CvData");
+      for (var i = 0; i < Skills.length; i++) {
+        var skill = Skills[i];
+        let skContent = document.createElement("li");
+
+        //let startDate = document.createElement("span");
+        //let endDate = document.createElement("span");
+
+        //console.log(education.certificateName);
+        skContent.innerText = skill;
+        //startDate.innerText = education.startDate;
+        //endDate.innerText = education.endDate;
+        //skElem.appendChild(skHead);
+        skElem.appendChild(skContent);
+        //sElm.appendChild(skElem);
+        //educationContent.appendChild(startDate);
+        //educationContent.appendChild(endDate);
+      }
+      document.body.appendChild(skElem);
+    </script>
+  </body>
+</html>
+var numFld = document.skills; for ( var i=0; i<numFld.length; i++){ if
+(document.skills[i].value == document.skills[i+1].value){ alert('skill exists');
+return false } } alert('no match'); return true;

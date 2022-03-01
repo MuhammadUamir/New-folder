@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CV Generator</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <style>
+      body {
+        height: 100%;
+        width: 100%;
+      }
+      .left-sidebar-secondary-heading {
+        background: #414548;
+        padding: 0.6rem 1.2rem;
+        line-height: 1;
+        font-size: 1.2rem;
+        text-transform: capitalize;
+      }
+      .fw-lighter {
+        font-size: 0.8rem;
+      }
+      .sub-head {
+        padding-left: 1rem;
+      }
+      .progress {
+        background-color: #0f0f0fa6;
+        padding: 0.2rem;
+        margin-bottom: 1rem;
+        margin-right: 1.5rem;
+      }
+      .progress-bar {
+        background-color: white;
+      }
+      .exp {
+        display: grid;
+        grid-template-columns: 2fr 5fr;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <h2 style="text-align: center">Cv Data</h2>
+      <div class="row">
+        <!-- NAME -->
+        <section class="col-4">
+          <div class="name mb-3">
+            <label for="name" class="form-label">Name:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              placeholder="First Name"
+            />
+          </div>
+
+          <!-- OBECTIVE -->
+          <div class="obj">
+            <span>Objective:</span>
+            <textarea id="objective"></textarea>
+          </div>
+
+          <!-- CONTACT -->
+          <div class="contact">
+            <span> Contact:</span>
+            <input type="contact" id="contact" name="contact" />
+          </div>
+
+          <!-- EMAIL -->
+          <div class="email">
+            <span> Email:</span>
+            <input type="text" id="email" name="Email" />
+          </div>
+
+          <!-- SKILLS -->
+
+          <div id="skills_area">
+            <span>Skills:</span>
+            <input type="text" id="skills" />
+
+            <!-- <span>Expertise:</span>
+        <select name="expertise">
+          <option value="20">20%</option>
+          <option>40%</option>
+          <option>60%</option>
+          <option>80%</option>
+          <option>100%</option>
+        </select> -->
+          </div>
+          <button type="button" onclick="skills_add()">Add</button>
+
+          <button id="remove">Remove</button>
+          <div id="skills_display"></div>
+
+          <!-- RADIO BUTTONS -->
+          <span>Links</span>
+          <div class="radio">
+            <input
+              onchange=""
+              type="radio"
+              id="linkedin"
+              name="links"
+              value="linkedin.com/in"
+              checked
+            />
+            <label for="linkedin">Linked In</label>
+            <input
+              onchange=""
+              type="radio"
+              id="github"
+              name="links"
+              value="github.com"
+            />
+            <label for="github">Git Hub </label>
+
+            <input
+              style="margin-left: 30%"
+              onfocus="getLinkValue()"
+              type="text"
+              value=""
+              id="ip"
+              name="links_b"
+            />
+          </div>
+        </section>
+
+        <!-- PROJECTS -->
+        <section class="col-8">
+          <div id="add_p">
+            <div class="row" id="project_row_1">
+              <div class="col-md-4">
+                <label class="form-label" for="project_title_1"
+                  >Projects:</label
+                >
+                <input
+                  class="form-control"
+                  type="text"
+                  name="pname"
+                  id="project_title_1"
+                />
+              </div>
+
+              <div class="col-md-8">
+                <label class="form-label" for="project_description_1"
+                  >Project Description</label
+                >
+                <textarea
+                  class="form-control"
+                  id="project_description_1"
+                  name="tarea"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+          <button type="button" onclick="add_project()" id="p-add">Add</button
+          ><br />
+          <!-- Education -->
+          <span id="edu">Educations:</span><br /><br />
+
+          <div id="add_E">
+            <div class="row" id="education_row_1">
+              <div class="col-md-3">
+                <label for="dname_1" class="form-label">Degree Name:</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="dname"
+                  id="dname_1"
+                />
+              </div>
+
+              <div class="col-md-3">
+                <span>Start Date:</span>
+                <input class="form-control" type="Date" name="sdate" />
+              </div>
+
+              <div class="col-md-3">
+                <span>End Date:</span>
+                <input class="form-control" type="Date" name="edate" />
+              </div>
+
+              <div class="col-md-3">
+                <span>Institute Name:</span>
+                <input class="form-control" type="text" name="Iname" />
+              </div>
+            </div>
+          </div>
+          <!-- BUTTONS   -->
+          <div class="btn">
+            <button type="button" onclick="add_education()" id="add">
+              Add
+            </button>
+          </div>
+
+          <!-- LANGUAGE -->
+          <div class="lang">
+            <span class="lan">Languages:</span>
+            <label>
+              <input
+                type="Checkbox"
+                name="Language"
+                value="English"
+                id="English"
+                onchange="getLangValue()"
+              />English</label
+            >
+            <label
+              ><input
+                type="Checkbox"
+                name="Language"
+                value="Urdu"
+                id="Urdu"
+                onchange="getLangValue()"
+              />Urdu</label
+            >
+            <label
+              ><input
+                type="Checkbox"
+                name="Language"
+                value="Punjabi"
+                id="Punjabi"
+                onchange="getLangValue()"
+              />Punjabi</label
+            >
+            <label>
+              <input
+                type="Checkbox"
+                name="Language"
+                value="Sindhi"
+                id="Sindhi"
+                onchange="getLangValue()"
+              />Sindhi</label
+            >
+            <label
+              ><input
+                type="Checkbox"
+                name="Language"
+                value="Balochi"
+                id="Balochi"
+                onchange="getLangValue()"
+              />Balochi</label
+            >
+            <label
+              ><input
+                type="Checkbox"
+                name="Language"
+                value="Pashto"
+                id="Pashto"
+                onchange="getLangValue()"
+              />Pashto</label
+            >
+            <input type="text" id="language" value="" disabled />
+          </div>
+
+          <!-- SUBMIT BUTTON -->
+
+          <button
+            onclick="save_form()"
+            id="submit"
+            type="button"
+            value="submit"
+          >
+            Submit
+          </button>
+        </section>
+      </div>
+
+      <div id="errors"></div>
+
+      <div id="cv" class="row m-2"></div>
+    </div>
+
+    <script>
+      initRender();
+      var project_id_number = 1;
+      var education_id_number = 1;
+      function initRender() {
+        add_education();
+      }
+
+      var links = document.querySelectorAll('input[name="links"]');
+
+      function getLinkValue() {
+        links.forEach((element) => {
+          if (element.checked) {
+            //console.log(element);
+            let val = element.value;
+            //console.log(val);
+            let elem = document.getElementById("ip");
+            elem.value = val;
+            //console.log(elem);
+            // if (val == "linkedin") {
+            //   //elem.setAttribute("value", "https://linkedin.com/in/");
+            //   // https://linkedin.com/in/
+            //   elem.value = "linkin.com/in";
+            // }
+            // if (val == "github") {
+            //   elem.value = "github.com";
+            // }
+          }
+        });
+      }
+
+      // CHECKBOX VALUES
+
+      var language = document.querySelectorAll('input[name="Language"]');
+
+      function getLangValue() {
+        let langsArr = [];
+        let lang_elem = document.getElementById("language");
+        language.forEach((element, index) => {
+          if (element.checked) {
+            //console.log(element);
+            let val = element.value;
+            langsArr.push(val);
+          }
+        });
+        lang_elem.value = langsArr.join();
+
+        return langsArr;
+
+        //console.log(langStr);
+      }
+
+      //EDUCATION
+      var add_e = document.getElementById("add_E");
+
+      function add_education() {
+        var temp_div = document.createElement("div");
+        temp_div.setAttribute("id", "education_row_" + education_id_number);
+
+        var new_dn = document.createElement("input");
+        var new_st = document.createElement("input");
+        var new_ed = document.createElement("input");
+        var new_in = document.createElement("input");
+
+        new_dn.setAttribute("type", "text");
+        new_dn.setAttribute("name", "dname");
+        new_st.setAttribute("type", "Date");
+        new_st.setAttribute("name", "sdate");
+        new_ed.setAttribute("type", "Date");
+        new_ed.setAttribute("name", "edate");
+        new_in.setAttribute("type", "text");
+        new_in.setAttribute("name", "Iname");
+
+        let degree_name_label = document.createElement("span");
+        degree_name_label.innerHTML = "DegreeName: ";
+        temp_div.appendChild(degree_name_label);
+        temp_div.appendChild(new_dn);
+
+        let start_date_label = document.createElement("span");
+        start_date_label.innerHTML = "StartDate: ";
+        temp_div.appendChild(start_date_label);
+        temp_div.appendChild(new_st);
+
+        let end_date_label = document.createElement("span");
+        end_date_label.innerHTML = "EndDate: ";
+        temp_div.appendChild(end_date_label);
+        temp_div.appendChild(new_ed);
+
+        let institute_name_label = document.createElement("span");
+        institute_name_label.innerHTML = "InstituteName: ";
+        temp_div.appendChild(institute_name_label);
+        temp_div.appendChild(new_in);
+
+        add_e.appendChild(temp_div);
+        education_id_number++;
+      }
+
+      // PROJECTS
+      var p = document.getElementById("add_p");
+
+      function add_project() {
+        var M_div = document.createElement("div");
+        var t_input = document.createElement("input");
+        var text = document.createElement("textarea");
+
+        t_input.setAttribute("type", "text");
+        t_input.setAttribute("name", "pname");
+        text.setAttribute("name", "tarea");
+
+        let project_name = document.createElement("span");
+        project_name.innerHTML = "Projects:";
+        M_div.appendChild(project_name);
+        M_div.appendChild(t_input);
+        M_div.appendChild(text);
+
+        p.appendChild(M_div);
+      }
+
+      // skills
+      var add_s = document.getElementById("skills_area");
+
+      function add() {
+        var M_div = document.createElement("div");
+        var new_in = document.createElement("input");
+        var new_sl = document.createElement("select");
+
+        new_sl.setAttribute("name", "expertise");
+
+        let new_s = document.createElement("span");
+        new_s.innerText = "";
+        M_div.appendChild(new_s);
+        M_div.appendChild(new_in);
+
+        let new_p = document.createElement("span");
+        new_p.innerText = "Expertise: ";
+        M_div.appendChild(new_p);
+        M_div.appendChild(new_sl);
+
+        add_s.appendChild(M_div);
+      }
+
+      function save_form() {
+        if (validate()) {
+          var cVData = {
+            name: document.getElementById("name").value,
+            contact: document.getElementById("contact").value,
+            email: document.getElementById("email").value,
+            objective: document.getElementById("objective").value,
+            links: document.getElementById("ip").value,
+            language: getLangValue(),
+          };
+
+          cVData["skills"] = getSkills();
+
+          cVData["Projects"] = getProjects();
+
+          cVData["Educations"] = getEducations();
+          //cVData = getLinkValue();
+
+          console.log(cVData);
+
+          template_design_1(cVData);
+
+          // LINK
+
+          // EDUCATION DATA
+
+          // var education = document.querySelectorAll('input[name="dname"]');
+          // var arr = [];
+
+          // for (var i = 0; i < education.length; i++) {
+          //   let obj = {};
+          //   let dName = education[i].value;
+          //   obj["certificateName"] = dName;
+          //   arr.push(obj);
+          // }
+
+          // var start_date = document.querySelectorAll('input[name="sdate"]');
+          // for (var i = 0; i < start_date.length; i++) {
+          //   let sdate = start_date[i].value;
+          //   obj = arr[i];
+          //   obj["startDate"] = sdate;
+          // }
+
+          // var end_date = document.querySelectorAll('input[name="edate"]');
+          // for (var i = 0; i < end_date.length; i++) {
+          //   let edate = end_date[i].value;
+          //   obj = arr[i];
+          //   obj["endDate"] = edate;
+          // }
+
+          // console.log(arr);
+
+          // var sills = document.querySelectorAll('input[name="dname"]');
+          // var arr = [];
+
+          // TO DISPLAY SKILLS ARRAY
+
+          // var sal = document.querySelectorAll('select[name="expertise"]');
+          // var arr = [];
+          // for (var i = 0; i < sal.length; i++) {
+          //   let obj = {};
+          //   let skill = sal[i].id;
+          //   obj["name"] = skill;
+          //   let output = sal[i].value;
+          //   obj["percentage"] = output;
+          //   arr.push(obj);
+          // }
+          // console.log(arr);
+
+          // PROJECTS
+          // var Pro = document.querySelectorAll('input[name="pname"]');
+          // var des = document.querySelectorAll('textarea[name="tarea"]');
+          // var arr = [];
+
+          // for (var i = 0; i < Pro.length; i++) {
+          //   let obj = {};
+          //   let pname = Pro[i].value;
+          //   if (pname.trim() == "") {
+          //     continue;
+          //   }
+          //   let tarea = des[i].value;
+          //   obj["project"] = pname;
+          //   obj["description"] = tarea;
+          //   arr.push(obj);
+          // }
+
+          // var des = document.querySelectorAll('textarea[name="tarea"]');
+          // for (var i = 0; i < des.length; i++) {
+          //   let tarea = des[i].value;
+          //   obj = arr[i];
+          //   obj["description"] = tarea;
+          // }
+          //console.log(arr);
+
+          // VALIDATION
+        } else {
+          display_errors();
+        }
+      }
+
+      //INPUT FIELDS VALIDATION
+
+      function validate() {
+        let v1 = validateTextField();
+        let v2 = validateEmail();
+        let v3 = validateRadio();
+        return v1 & v2 & v3;
+      }
+
+      var error_array;
+      function validateTextField() {
+        var inputIds = ["name", "contact", "language"];
+        error_array = [];
+
+        let valid_fields = true;
+
+        for (var i = 0; i < inputIds.length; i++) {
+          var hasValue = document.getElementById(inputIds[i]).value;
+          if (!hasValue.trim()) {
+            error_array.push(inputIds[i] + " is invalid");
+            if (valid_fields) {
+              valid_fields = false;
+            }
+          }
+        }
+        return valid_fields;
+      }
+
+      function display_errors() {
+        var list = document.createElement("ul");
+        // for loop error_array
+        for (var i = 0; i < error_array.length; i++) {
+          var elm = document.createElement("li");
+
+          let new_elm = document.createElement("span");
+          new_elm.innerText = error_array[i]; // error message
+          elm.appendChild(new_elm);
+          list.appendChild(elm);
+        }
+        // elm.setAttribute("id", "hasValue");
+
+        // list item add in ul
+        // end for loop
+        // ul add in document;
+
+        document.body.appendChild(list);
+        // errors.appendChild(list);
+        // console.log("errors");
+      }
+
+      //EMAIL VALIDATION
+
+      function validateEmail() {
+        var mail = document.getElementById("email");
+        var regx = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+
+        let obj = {};
+        if (regx.test(mail.value)) {
+          //alert("valid Email");
+          return true;
+        } else {
+          //alert("invalid Email");
+          error_array.push("Email is invalid");
+        }
+      }
+
+      function validateRadio() {
+        //var value = document.querySelector('input[name="links"]');
+        var value = document.getElementById("ip").value.trim();
+        var radios = document.querySelectorAll('input[name="links"]');
+        let rvalues = [];
+        radios.forEach(function (radio) {
+          rvalues.push(radio.value);
+        });
+
+        if (value == "") {
+          error_array.push("link is invalid");
+        } else if (rvalues.indexOf(value) != -1) {
+          error_array.push("link is invalid");
+        }
+
+        // else if (value == elem.value) {
+        //   error_array.push("link is invalid");
+        // }
+        else {
+          return true;
+        }
+      }
+
+      //SKILLS
+      function getSkills() {
+        let skillsArr = [];
+        var sal = document.querySelectorAll('select[name="expertise"]');
+
+        for (var i = 0; i < sal.length; i++) {
+          let obj = {};
+          let skill = sal[i].id;
+          obj["name"] = skill;
+          let output = sal[i].value;
+          obj["percentage"] = output;
+          skillsArr.push(obj);
+        }
+        return skillsArr;
+        //cvData.skills = skillsArr;
+      }
+
+      //PROJECTS
+      function getProjects() {
+        let projectArr = [];
+        var Pro = document.querySelectorAll('input[name="pname"]');
+        var des = document.querySelectorAll('textarea[name="tarea"]');
+        for (var i = 0; i < Pro.length; i++) {
+          let obj = {};
+          let pname = Pro[i].value;
+          if (pname.trim() == "") {
+            continue;
+          }
+          let tarea = des[i].value;
+          obj["project"] = pname;
+          obj["description"] = tarea;
+          projectArr.push(obj);
+        }
+        // var des = document.querySelectorAll('textarea[name="tarea"]');
+        // for (var i = 0; i < des.length; i++) {
+        //   let tarea = des[i].value;
+        //   obj = projectArr[i];
+        //   obj["description"] = tarea;
+        // }
+        return projectArr;
+        //console.log(projectArr);
+      }
+
+      //EDUCATION
+      function getEducations(cvData) {
+        let EduArr = [];
+        var education = document.querySelectorAll('input[name="dname"]');
+        var start_date = document.querySelectorAll('input[name="sdate"]');
+        var end_date = document.querySelectorAll('input[name="edate"]');
+        var institute = document.querySelectorAll('input[name="Iname"]');
+
+        for (var i = 0; i < education.length; i++) {
+          let obj = {};
+          let dname = education[i].value;
+          if (dname.trim() == "") {
+            continue;
+          }
+
+          let sdate = start_date[i].value;
+          let edate = end_date[i].value;
+          let Iname = institute[i].value;
+
+          obj["degreeName"] = dname;
+          obj["startDate"] = sdate;
+          obj["endDate"] = edate;
+          obj["institute"] = Iname;
+
+          EduArr.push(obj);
+        }
+
+        // var start_date = document.querySelectorAll('input[name="sdate"]');
+        // for (var i = 0; i < start_date.length; i++) {
+        //   let sdate = start_date[i].value;
+        //   obj = EduArr[i];
+        //   obj["startDate"] = sdate;
+        // }
+
+        // var end_date = document.querySelectorAll('input[name="edate"]');
+        // for (var i = 0; i < end_date.length; i++) {
+        //   let edate = end_date[i].value;
+        //   obj = EduArr[i];
+        //   obj["endDate"] = edate;
+        // }
+        return EduArr;
+      }
+
+      function skills_add() {
+        var skillsInput = document.getElementById("skills").value;
+        if (skillsInput.trim() == "") {
+          return;
+        }
+        var skills = convert_string_to_array(skillsInput);
+        let skd = document.getElementById("skills_display");
+        for (let i = 0; i < skills.length; i++) {
+          if (document.getElementById(skills[i])) {
+            continue;
+          }
+
+          let span = document.createElement("span");
+          span.innerHTML = skills[i];
+          var new_sl = document.createElement("select");
+          new_sl.setAttribute("id", skills[i]);
+          new_sl.setAttribute("name", "expertise");
+          for (let k = 1; k <= 5; k++) {
+            option_helper(new_sl, k * 20);
+          }
+          skd.append(span);
+          skd.append(new_sl);
+        }
+      }
+
+      // REMOVE BUTTON
+      var del = document.querySelector("#remove");
+      del.addEventListener("click", (event) => {
+        event.preventDefault();
+        let btn = event.target;
+        let skillsDiv = document.getElementById("skills_display");
+        /* skillsDiv.childNodes.forEach((node) => {
+                      node.remove();
+                    }); */
+        skillsDiv.innerHTML = "";
+      });
+
+      function option_helper(sel, val) {
+        let option = document.createElement("option");
+        option.setAttribute("value", val);
+        option.innerHTML = val + "%";
+        sel.appendChild(option);
+        document.getElementById("skills").value = "";
+      }
+
+      function convert_string_to_array(skillsInput) {
+        let skills = skillsInput.split(",");
+        return skills;
+      }
+
+      function template_design_1(cvData) {
+        console.log(cvData);
+        let cv_section = document.getElementById("cv");
+        cv_section.innerHTML = "";
+
+        let section_left = document.createElement("section");
+        section_left.setAttribute("id", "left_1");
+        //section_left.setAttribute("class", "col-4 bg-dark text-light p-0");
+        section_left.classList.add("col-4", "bg-dark", "text-light", "p-0");
+
+        let sub_head_1 = document.createElement("div");
+        //sub_head_1.setAttribute("class", "sub-head");
+        sub_head_1.classList.add("sub-head");
+
+        let name = document.createElement("h2");
+        name.innerText = cvData.name;
+        let designation = document.createElement("p");
+        p.innerText = "";
+
+        sub_head_1.appendChild(name);
+        sub_head_1.appendChild(p);
+        section_left.appendChild(sub_head_1);
+
+        let h_4_1 = document.createElement("h4");
+        //h_4_1.setAttribute("class", "left-sidebar-secondary-heading");
+        h_4_1.classList.add("left-sidebar-secondary-heading");
+        h_4_1.innerText = "Personal info";
+
+        let sub_head_2 = document.createElement("div");
+        //sub_head_2.setAttribute("class", "sub-head");
+        sub_head_2.classList.add("sub-head");
+
+        let span_1 = document.createElement("span");
+        span_1.innerText = "Phone";
+
+        let p_1 = document.createElement("p");
+        //p_1.setAttribute("class", "fw-lighter");
+        p_1.classList.add("fw-lighter");
+        p_1.innerText = cvData.contact;
+
+        section_left.appendChild(h_4_1);
+        sub_head_2.appendChild(span_1);
+        sub_head_2.appendChild(p_1);
+        section_left.appendChild(sub_head_2);
+
+        let sub_head_3 = document.createElement("div");
+        //sub_head_3.setAttribute("class", "sub-head");
+        sub_head_3.classList.add("sub-head");
+
+        let span_2 = document.createElement("span");
+        span_2.innerText = "Email";
+
+        let P_2 = document.createElement("p");
+        //p_2.setAttribute("class", "fw-lighter");
+        P_2.classList.add("fw-lighter");
+        P_2.innerText = cvData.email;
+
+        sub_head_3.appendChild(span_2);
+        sub_head_3.appendChild(P_2);
+        section_left.appendChild(sub_head_3);
+
+        let sub_head_4 = document.createElement("div");
+        //sub_head_4.setAttribute("class", "sub-head");
+        sub_head_4.classList.add("sub-head");
+
+        let span_3 = document.createElement("span");
+        span_3.innerText = "linkedin";
+
+        let P_3 = document.createElement("p");
+        //p_3.setAttribute("class", "fw-lighter");
+        P_3.classList.add("fw-lighter");
+        P_3.innerText = cvData.links;
+
+        sub_head_4.appendChild(span_3);
+        sub_head_4.appendChild(P_3);
+        section_left.appendChild(sub_head_4);
+
+        let Skills = document.createElement("h4");
+        // h_4_2.setAttribute("class", "left-sidebar-secondary-heading");
+        Skills.classList.add("left-sidebar-secondary-heading");
+        Skills.innerText = "Skills";
+        section_left.appendChild(Skills);
+
+        cvData.skills.forEach((skill) => {
+          let skillContainer = document.createElement("div");
+          skillContainer.classList.add("sub-head");
+
+          let skillName = document.createElement("p");
+          skillName.classList.add("fw-lighter");
+          skillName.innerText = skill.name;
+
+          let skillProgressBar = document.createElement("div");
+          skillProgressBar.classList.add("progress");
+
+          let skillProgressValue = document.createElement("div");
+          skillProgressValue.classList.add("progress-bar");
+          skillProgressValue.style.width = skill.percentage + "%";
+
+          skillContainer.appendChild(skillName);
+          skillProgressBar.appendChild(skillProgressValue);
+          skillContainer.appendChild(skillProgressBar);
+
+          section_left.appendChild(skillContainer);
+        });
+
+        let Language = document.createElement("h4");
+        Language.classList.add("left-sidebar-secondary-heading");
+        Language.innerText = "Language";
+        section_left.appendChild(Language);
+
+        let LanguageContainer = document.createElement("div");
+        Language.classList.add("sub-head");
+
+        let LanguageList = document.createElement("ul");
+        cvData.language.forEach((lang) => {
+          let languageElem = document.createElement("li");
+          languageElem.innerText = lang;
+          LanguageList.appendChild(languageElem);
+        });
+
+        LanguageContainer.appendChild(LanguageList);
+        section_left.appendChild(LanguageContainer);
+
+        //SECTION RIGHT
+
+        let section_right = document.createElement("section");
+        section_right.setAttribute("id", "right_1");
+        //section_right.setAttribute("class", "col-8");
+        section_right.classList.add("col-8");
+
+        let d_1 = document.createElement("div");
+
+        let pa_1 = document.createElement("p");
+        pa_1.classList.add("fw-lighter");
+        pa_1.innerText = cvData.objective;
+
+        d_1.appendChild(pa_1);
+        section_right.appendChild(d_1);
+
+        let hr_1 = document.createElement("hr");
+        section_right.appendChild(hr_1);
+
+        let head_1 = document.createElement("h4");
+        head_1.innerText = "Projects";
+        let hr_2 = document.createElement("hr");
+        section_right.appendChild(head_1);
+        section_right.appendChild(hr_2);
+
+        cvData.Projects.forEach((project) => {
+          let projectsContainer = document.createElement("div");
+          projectsContainer.classList.add("exp");
+
+          let projectTitle = document.createElement("div");
+          let projectDescription = document.createElement("div");
+          let porjectName = document.createElement("p");
+          porjectName.innerText = project.project;
+          let projectExplaination = document.createElement("p");
+          projectExplaination.classList.add("fw-lighter");
+          projectExplaination.innerText = project.description;
+
+          projectTitle.appendChild(porjectName);
+          projectsContainer.appendChild(projectTitle);
+
+          projectDescription.appendChild(projectExplaination);
+          projectsContainer.appendChild(projectDescription);
+
+          section_right.appendChild(projectsContainer);
+        });
+
+        let hr_3 = document.createElement("hr");
+        section_right.appendChild(hr_3);
+
+        let head_2 = document.createElement("h4");
+        head_2.innerText = "Education";
+        let hr_4 = document.createElement("hr");
+        section_right.appendChild(head_2);
+        section_right.appendChild(hr_4);
+
+        cvData.Educations.forEach((Education) => {
+          let educationContainer = document.createElement("div");
+          educationContainer.classList.add("exp");
+
+          let Dates = document.createElement("div");
+          let Name = document.createElement("div");
+          let sDate = document.createElement("p");
+          sDate.classList.add("fw-lighter");
+          sDate.innerText = Education.startDate;
+          let eDate = document.createElement("p");
+          eDate.classList.add("fw-lighter");
+          eDate.innerText = Education.endDate;
+          let DName = document.createElement("p");
+          DName.innerText = Education.degreeName;
+
+          Dates.appendChild(sDate);
+          Dates.appendChild(eDate);
+          educationContainer.appendChild(Dates);
+
+          Name.appendChild(DName);
+          educationContainer.appendChild(Name);
+
+          section_right.appendChild(educationContainer);
+        });
+
+        cv_section.appendChild(section_left);
+        cv_section.appendChild(section_right);
+      }
+    </script>
+  </body>
+</html>

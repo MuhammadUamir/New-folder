@@ -1,0 +1,117 @@
+.left {
+  font-size: large;
+  display: inline-block;
+  float: left;
+  width: 30%;
+  font-weight: bold;
+  height: 100%;
+}
+
+.left > div > input,
+.left > div > span,
+.left > div > textarea {
+  display: inline-block;
+}
+
+.left > div > input,
+.left > div > textarea {
+  width: 60%;
+}
+.left > div > span {
+  width: 30%;
+}
+.top {
+  display: inline-block;
+  font-size: large;
+  width: 69%;
+}
+.name {
+  padding-bottom: 2%;
+}
+.obj {
+  padding-bottom: 2%;
+}
+.contact {
+  padding-bottom: 2%;
+}
+.email {
+  padding-bottom: 2%;
+}
+#skills_area {
+  padding-bottom: 2%;
+}
+.radio {
+  margin-top: 2%;
+  margin-left: -43%;
+  font-weight: lighter;
+}
+
+.top > div > input {
+  margin-bottom: 2%;
+}
+#p_input {
+  margin-left: 10%;
+}
+/* #add_p > div {
+  display: inline-block;
+  font-weight: bold;
+  width: 100%;
+  margin-bottom: 2%;
+}
+#add_p > div > input {
+  margin-left: 6%;
+}
+#add_p > div > textarea {
+  margin-left: 3%;
+} */
+.card {
+  margin-bottom: 1%;
+}
+#t_area {
+  width: 256px;
+  height: 25px;
+  margin-left: 10%;
+}
+
+#add_E {
+  margin-bottom: 2%;
+}
+#edu {
+  font-weight: bold;
+}
+.lan {
+  font-weight: bold;
+}
+#submit {
+  margin-top: 8%;
+  margin-left: 30%;
+}
+
+/* DUMMY CV */
+#left_1 {
+  font-size: large;
+  display: inline-block;
+  float: left;
+  width: 20%;
+
+  height: 100%;
+}
+/*
+#left_1 > div > input,
+#left_1 > div > span,
+#left_1 > div > textarea {
+  display: inline-block;
+}
+
+#left_1 > div > input,
+#left_1 > div > textarea {
+  width: 60%;
+}
+#left_1 > div > span {
+  width: 30%;
+}*/
+#right {
+  display: inline-block;
+  font-size: large;
+  width: 69%;
+}

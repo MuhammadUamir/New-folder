@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head> </head>
+  <body>
+    <h2 style="text-align: center">JSON Data</h2>
+    <p id="CvData" style="text-align: center"></p>
+
+    <script type="text/javascript">
+      var cvData = {
+        firstName: "Muhammad",
+        lastName: "Umair",
+        email: "umair@gmail.com",
+        contact: "03335507890",
+        objective: "i'm a software developer .....",
+        Education: [
+          {
+            certificateName: "SSC",
+            startDate: 2010,
+            endDate: 2012,
+          },
+          {
+            certificateName: "HSSC",
+            startDate: 2013,
+            endDate: 2015,
+          },
+          {
+            certificateName: "BSCS",
+            startDate: 2015,
+            endDate: 2019,
+          },
+        ],
+        skills: ["HTML", "CSS", "PHP"],
+      };
+
+      var cvDataElem = document.getElementById("CvData");
+      cvDataElem.innerText += `Name: ${cvData.firstName} ${cvData.lastName}\n
+      Email: ${cvData.email}\n
+      Contact: ${cvData.contact}\n
+      Objective: ${cvData.objective}\n\nEducation:\n`;
+
+      cvData.Education.forEach(function (educationItem) {
+        cvDataElem.innerText += `
+        CertificateName: ${educationItem.certificateName}\n
+        Start Date: ${educationItem.startDate} EndDate: ${educationItem.endDate}\n`;
+      });
+
+      cvDataElem.innerText += "\n\nSkills:\n\n";
+
+      cvData.skills.forEach(function (skillsItem) {
+        cvDataElem.innerText += `\n ${skillsItem}`;
+      });
+    </script>
+  </body>
+</html>
+
+<!-- var cvDataElem = document.createElement("p");
+cvDataElem.setAttribute("id", "CvData");
+cvDataElem.style.textAlign = "center";
+
+document.body.appendChild(cvDataElem);
+
+cvDataElem.appendChild(); -->

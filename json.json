@@ -1,0 +1,15 @@
+{
+  "firstName": "Muhammad",
+  "lastName": "Umair",
+  "email": "umair@gmail.com",
+  "contact": "03335507890",
+  "objective": "i'm a software developer .....",
+  "Education": [
+    {
+      "certificateName": "SSC",
+      "startDate": 2010
+    },
+    {}
+  ],
+  "skills": ["php", "php", "php"]
+}

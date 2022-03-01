@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CV Generator</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <style>
+      body {
+        height: 100%;
+        width: 100%;
+      }
+      .left-sidebar-secondary-heading {
+        background: #414548;
+        padding: 0.6rem 1.2rem;
+        line-height: 1;
+        font-size: 1.2rem;
+        text-transform: capitalize;
+      }
+      .fw-lighter {
+        font-size: 0.8rem;
+      }
+      .sub-head {
+        padding-left: 1rem;
+      }
+      .progress {
+        background-color: #0f0f0fa6;
+        padding: 0.2rem;
+        margin-bottom: 1rem;
+        margin-right: 1.5rem;
+      }
+      .progress-bar {
+        background-color: white;
+      }
+      .exp {
+        display: grid;
+        grid-template-columns: 2fr 5fr;
+      }
+      #Link_label {
+        margin-top: 1rem;
+      }
+      .form-label {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <h2 style="text-align: center">Cv Data</h2>
+      <div class="row">
+        <!-- NAME -->
+        <section class="col-md-4">
+          <div class="name mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              placeholder="Name"
+            />
+          </div>
+
+          <!-- OBECTIVE -->
+          <div class="col-md-12">
+            <label for="objective" class="form-label">Objective</label>
+            <textarea
+              class="form-control"
+              for="objective_description"
+              id="objective"
+            ></textarea>
+          </div>
+
+          <!-- CONTACT -->
+          <div class="name mb-3">
+            <label for="contact" class="form-label">Contact</label>
+            <input
+              type="text"
+              class="form-control"
+              id="contact"
+              placeholder="Contact"
+            />
+          </div>
+
+          <!-- EMAIL -->
+          <div class="name mb-3">
+            <label for="email" class="form-label">E-mail</label>
+            <input
+              type="text"
+              class="form-control"
+              id="email"
+              placeholder="E-mail"
+            />
+          </div>
+
+          <!-- SKILLS -->
+
+          <div class="card">
+            <div class="name mb-3 card-header fw-bold">
+              <label for="skill" class="form-label">Skills</label>
+              <input
+                type="text"
+                class="form-control"
+                id="skills"
+                placeholder="Skills"
+              />
+            </div>
+            <div class="card-footer text-center">
+              <button
+                class="btn btn-primary"
+                type="button"
+                onclick="skills_add()"
+              >
+                Add
+              </button>
+
+              <button class="btn btn-danger" id="remove">Remove</button>
+            </div>
+            <div id="skills_display"></div>
+          </div>
+
+          <!-- LINKS -->
+          <div class="card">
+            <div class="name mb-3 card-header fw-bold">
+              <label for="link" class="form-label" id="Link_label">Links</label>
+              <input
+                class="form-control"
+                placeholder="Links"
+                type="text"
+                value=""
+                id="ip"
+                name="links_b"
+              />
+            </div>
+            <div>
+              <div class="card-footer text-center">
+                <button
+                  class="btn btn-primary"
+                  type="button"
+                  onclick="links_add()"
+                >
+                  Add
+                </button>
+              </div>
+            </div>
+            <div id="links_display"></div>
+          </div>
+        </section>
+
+        <!-- PROJECTS -->
+        <section class="col-md-8">
+          <div class="card">
+            <div class="card-header fw-bold">Project</div>
+            <div id="add_p" class="card-body"></div>
+            <div class="card-footer text-center">
+              <button
+                class="btn btn-primary"
+                type="button"
+                onclick="add_project()"
+                id="p-add"
+              >
+                Add Project
+              </button>
+            </div>
+          </div>
+
+          <!-- Education -->
+
+          <div class="card">
+            <div class="card-header fw-bold">Education</div>
+            <div id="add_E" class="card-body"></div>
+            <div class="card-footer text-center">
+              <button
+                class="btn btn-primary"
+                type="button"
+                onclick="add_education()"
+                id="add"
+              >
+                Add Education
+              </button>
+            </div>
+          </div>
+
+          <!-- EXPERIENCE -->
+
+          <div class="card">
+            <div class="card-header fw-bold">Experience</div>
+            <div id="add_exp" class="card-body"></div>
+            <div class="card-footer text-center">
+              <button
+                class="btn btn-primary"
+                type="button"
+                onclick="add_experience()"
+                id="add"
+              >
+                Add Experience
+              </button>
+            </div>
+          </div>
+
+          <!-- LANGUAGE -->
+          <div class="lang col-md-8">
+            <label for="language" class="form-label">Languages</label>
+            <input
+              placeholder="languages"
+              class="form-control"
+              type="text"
+              id="language"
+              value=""
+            />
+          </div>
+
+          <!-- SUBMIT BUTTON -->
+
+          <button
+            onclick="save_form()"
+            class="btn btn-primary"
+            id="submit"
+            type="button"
+            value="submit"
+          >
+            Submit
+          </button>
+        </section>
+      </div>
+
+      <div id="errors"></div>
+
+      <div id="cv" class="row m-2"></div>
+    </div>
+
+    <script>
+      var project_id_number = 1;
+      var education_id_number = 1;
+      var experience_id_number = 1;
+      function initRender() {
+        add_education();
+        add_project();
+        add_experience();
+      }
+
+      // var links = document.querySelectorAll('input[name="links"]');
+
+      // function getLinkValue() {
+      //   links.forEach((element) => {
+      //     if (element.checked) {
+      //       //console.log(element);
+      //       let val = element.value;
+      //       //console.log(val);
+      //       let elem = document.getElementById("ip");
+      //       elem.value = val;
+      //       //console.log(elem);
+      //       // if (val == "linkedin") {
+      //       //   //elem.setAttribute("value", "https://linkedin.com/in/");
+      //       //   // https://linkedin.com/in/
+      //       //   elem.value = "linkin.com/in";
+      //       // }
+      //       // if (val == "github") {
+      //       //   elem.value = "github.com";
+      //       // }
+      //     }
+      //   });
+      // }
+
+      // CHECKBOX VALUES
+
+      function getLangValue() {
+        var language = document.querySelector("#language");
+        var langsArr = language.value.split(",");
+
+        return langsArr;
+
+        //console.log(langStr);
+      }
+
+      //EDUCATION
+      var add_e = document.getElementById("add_E");
+
+      function add_education() {
+        var temp_div = document.createElement("div");
+        temp_div.classList.add("row", "mt-2");
+        // temp_div.setAttribute("id", "education_row_");
+        temp_div.setAttribute("id", "education_row_" + education_id_number);
+
+        let degreeContainer = document.createElement("div");
+        degreeContainer.classList.add("col-md-3");
+
+        var new_dn = document.createElement("input");
+        new_dn.classList.add("form-control");
+        new_dn.setAttribute("type", "text");
+        new_dn.setAttribute("name", "dname");
+        new_dn.setAttribute("id", "dname_" + education_id_number);
+
+        let degreeLable = document.createElement("label");
+        degreeLable.classList.add("form-label");
+        degreeLable.setAttribute("for", "dname_" + education_id_number);
+        degreeLable.innerText = "Degree Name ";
+        degreeContainer.appendChild(degreeLable);
+        degreeContainer.appendChild(new_dn);
+        temp_div.appendChild(degreeContainer);
+
+        //
+        let sdateContainer = document.createElement("div");
+        sdateContainer.classList.add("col-md-3");
+
+        var new_sd = document.createElement("input");
+        new_sd.classList.add("form-control");
+        new_sd.setAttribute("type", "date");
+        new_sd.setAttribute("name", "sdate");
+        new_sd.setAttribute("id", "sdate_" + education_id_number);
+        new_sd.setAttribute("onclick", "setDate()");
+
+        let start_date = document.createElement("label");
+        start_date.classList.add("form-label");
+        start_date.setAttribute("for", "sdate_" + education_id_number);
+        start_date.innerText = "Start Date ";
+        sdateContainer.appendChild(start_date);
+        sdateContainer.appendChild(new_sd);
+        temp_div.appendChild(sdateContainer);
+
+        //
+        let edateContainer = document.createElement("div");
+        edateContainer.classList.add("col-md-3");
+
+        var new_ed = document.createElement("input");
+        new_ed.classList.add("form-control");
+        new_ed.setAttribute("type", "date");
+        new_ed.setAttribute("name", "edate");
+        new_ed.setAttribute("id", "edate_" + education_id_number);
+        new_ed.setAttribute("onclick", "setDate()");
+
+        let end_date = document.createElement("label");
+        end_date.classList.add("form-label");
+        end_date.setAttribute("for", "edate_" + education_id_number);
+        end_date.innerText = "End Date ";
+        edateContainer.appendChild(end_date);
+        edateContainer.appendChild(new_ed);
+        temp_div.appendChild(edateContainer);
+
+        //
+        let instituteContainer = document.createElement("div");
+        instituteContainer.classList.add("col-md-3");
+
+        var new_institute = document.createElement("input");
+        new_institute.classList.add("form-control");
+        new_institute.setAttribute("type", "text");
+        new_institute.setAttribute("name", "iname");
+        new_institute.setAttribute("id", "iname_" + education_id_number);
+
+        let institute_lable = document.createElement("label");
+        institute_lable.classList.add("form-label");
+        institute_lable.setAttribute("for", "iname_" + education_id_number);
+        institute_lable.setAttribute("data-id", education_id_number);
+
+        institute_lable.innerText = "Institute Name ";
+        instituteContainer.appendChild(institute_lable);
+        instituteContainer.appendChild(new_institute);
+        temp_div.appendChild(instituteContainer);
+
+        add_e.appendChild(temp_div);
+        education_id_number++;
+      }
+
+      // DATE VALIDATION
+
+      function getEndDate() {
+        var todayDate = new Date();
+        var month = todayDate.getMonth() + 1;
+        var year = todayDate.getFullYear();
+        var tdate = todayDate.getDate();
+        if (month < 10) {
+          month = "0" + month;
+        }
+        if (tdate < 10) {
+          tdate = "0" + tdate;
+        }
+        var maxDate = year + "-" + month + "-" + tdate;
+        document.getElementById("edate_").setAttribute("max", maxDate);
+      }
+
+      function getDates(start_date, end_date) {
+        let sd = new Date(start_date);
+        let ed = new Date(end_date);
+
+        if (start_date < end_date) {
+          return true;
+        }
+        return false;
+      }
+
+      document.addEventListener("click", function (e) {
+        console.log(e.target);
+        console.log(e.target.dataset);
+        if (e.target.dataset && e.target.id == "edate_" + e.target.dataset.id) {
+          let elem = e.target;
+          let start_elem = document.getElementById(
+            "sdate_" + e.target.dataset.id
+          );
+          if (
+            start_elem.value !== undefined &&
+            start_elem.value !== null &&
+            start_elem.value !== ""
+          ) {
+            if (
+              getDates(start_elem.value, elem.value) <
+              getEndDate(e.target.id, elem.value)
+            ) {
+              return true;
+            }
+            return false;
+          }
+        }
+      });
+
+      // EXPERIENCE
+
+      var Exp = document.getElementById("add_exp");
+
+      function add_experience() {
+        var exp_div = document.createElement("div");
+        exp_div.classList.add("row", "mt-2");
+        exp_div.setAttribute("id", "experience_row_" + experience_id_number);
+
+        let experienceContainer = document.createElement("div");
+        experienceContainer.classList.add("col-md-3");
+
+        var new_company = document.createElement("input");
+        new_company.classList.add("form-control");
+        new_company.setAttribute("type", "text");
+        new_company.setAttribute("name", "cname");
+        new_company.setAttribute("id", "company_title" + experience_id_number);
+
+        let companyLable = document.createElement("label");
+        companyLable.classList.add("form-label");
+        companyLable.setAttribute(
+          "for",
+          "company_title" + experience_id_number
+        );
+        companyLable.innerText = "Company Name";
+        experienceContainer.appendChild(companyLable);
+        experienceContainer.appendChild(new_company);
+        exp_div.appendChild(experienceContainer);
+        //
+        let sdateContainer = document.createElement("div");
+        sdateContainer.classList.add("col-md-3");
+
+        var new_sd = document.createElement("input");
+        new_sd.classList.add("form-control");
+        new_sd.setAttribute("type", "date");
+        new_sd.setAttribute("name", "sdate");
+        new_sd.setAttribute("id", "sdate_" + experience_id_number);
+
+        let start_date = document.createElement("label");
+        start_date.classList.add("form-label");
+        start_date.setAttribute("for", "sdate_" + experience_id_number);
+        start_date.innerText = "Start Date ";
+        sdateContainer.appendChild(start_date);
+        sdateContainer.appendChild(new_sd);
+        exp_div.appendChild(sdateContainer);
+        //
+        let edateContainer = document.createElement("div");
+        edateContainer.classList.add("col-md-3");
+
+        var new_ed = document.createElement("input");
+        new_ed.classList.add("form-control");
+        new_ed.setAttribute("type", "date");
+        new_ed.setAttribute("name", "edate");
+        new_ed.setAttribute("id", "edate_" + experience_id_number);
+
+        let end_date = document.createElement("label");
+        end_date.classList.add("form-label");
+        end_date.setAttribute("for", "edate_" + experience_id_number);
+        end_date.innerText = "End Date ";
+        edateContainer.appendChild(end_date);
+        edateContainer.appendChild(new_ed);
+        exp_div.appendChild(edateContainer);
+        //
+        var jobDescriptionContainer = document.createElement("div");
+        jobDescriptionContainer.classList.add("col-md-3");
+
+        var textarea = document.createElement("input");
+        textarea.classList.add("form-control");
+        textarea.setAttribute("name", "jname");
+        textarea.setAttribute("id", "job_description_" + experience_id_number);
+
+        let text_lable = document.createElement("label");
+        text_lable.classList.add("form-label");
+        text_lable.setAttribute(
+          "for",
+          "job_description_" + experience_id_number
+        );
+        text_lable.innerText = "Job description ";
+
+        jobDescriptionContainer.appendChild(text_lable);
+        jobDescriptionContainer.appendChild(textarea);
+        exp_div.appendChild(jobDescriptionContainer);
+
+        Exp.appendChild(exp_div);
+        experience_id_number++;
+      }
+
+      // PROJECTS
+
+      function add_project() {
+        var p = document.getElementById("add_p");
+        var projects_div = document.createElement("div");
+        projects_div.classList.add("row", "mt-2");
+        projects_div.setAttribute("id", "project_row_" + project_id_number);
+
+        var projectsContainer = document.createElement("div");
+        projectsContainer.classList.add("col-md-4");
+
+        var projectName = document.createElement("input");
+        projectName.setAttribute("name", "pname");
+        projectName.classList.add("form-control");
+
+        let project_lable = document.createElement("label");
+        project_lable.classList.add("form-label");
+        project_lable.setAttribute("for", "project_title_" + project_id_number);
+        project_lable.innerText = "Project ";
+
+        projectsContainer.appendChild(project_lable);
+        projectsContainer.appendChild(projectName);
+        projects_div.appendChild(projectsContainer);
+
+        //
+        var descriptionContainer = document.createElement("div");
+        descriptionContainer.classList.add("col-md-8");
+
+        var textarea = document.createElement("textarea");
+        textarea.classList.add("form-control");
+        textarea.setAttribute("name", "tarea");
+        textarea.setAttribute("id", "project_description_" + project_id_number);
+
+        let text_lable = document.createElement("label");
+        text_lable.classList.add("form-label");
+        text_lable.setAttribute(
+          "for",
+          "project_description_" + project_id_number
+        );
+        text_lable.innerText = "Project description ";
+
+        descriptionContainer.appendChild(text_lable);
+        descriptionContainer.appendChild(textarea);
+        projects_div.appendChild(descriptionContainer);
+
+        p.appendChild(projects_div);
+        project_id_number++;
+      }
+
+      // skills
+      var add_s = document.getElementById("skills_area");
+
+      function add() {
+        var M_div = document.createElement("div");
+        var new_in = document.createElement("input");
+        var new_sl = document.createElement("select");
+
+        new_sl.setAttribute("name", "expertise");
+
+        let new_s = document.createElement("span");
+        new_s.innerText = "";
+        M_div.appendChild(new_s);
+        M_div.appendChild(new_in);
+
+        let new_p = document.createElement("span");
+        new_p.innerText = "Expertise: ";
+        M_div.appendChild(new_p);
+        M_div.appendChild(new_sl);
+
+        add_s.appendChild(M_div);
+      }
+
+      function save_form() {
+        if (validate()) {
+          var cVData = {
+            name: document.getElementById("name").value,
+            contact: document.getElementById("contact").value,
+            email: document.getElementById("email").value,
+            objective: document.getElementById("objective").value,
+            links: document.getElementById("ip").value,
+            language: getLangValue(),
+          };
+
+          cVData["skills"] = getSkills();
+
+          cVData["Projects"] = getProjects();
+
+          cVData["Educations"] = getEducations();
+          cVData["Experiences"] = getExperience();
+          //cVData = getLinkValue();
+
+          console.log(cVData);
+
+          template_design_1(cVData);
+
+          // LINK
+
+          // EDUCATION DATA
+
+          // var education = document.querySelectorAll('input[name="dname"]');
+          // var arr = [];
+
+          // for (var i = 0; i < education.length; i++) {
+          //   let obj = {};
+          //   let dName = education[i].value;
+          //   obj["certificateName"] = dName;
+          //   arr.push(obj);
+          // }
+
+          // var start_date = document.querySelectorAll('input[name="sdate"]');
+          // for (var i = 0; i < start_date.length; i++) {
+          //   let sdate = start_date[i].value;
+          //   obj = arr[i];
+          //   obj["startDate"] = sdate;
+          // }
+
+          // var end_date = document.querySelectorAll('input[name="edate"]');
+          // for (var i = 0; i < end_date.length; i++) {
+          //   let edate = end_date[i].value;
+          //   obj = arr[i];
+          //   obj["endDate"] = edate;
+          // }
+
+          // console.log(arr);
+
+          // var sills = document.querySelectorAll('input[name="dname"]');
+          // var arr = [];
+
+          // TO DISPLAY SKILLS ARRAY
+
+          // var sal = document.querySelectorAll('select[name="expertise"]');
+          // var arr = [];
+          // for (var i = 0; i < sal.length; i++) {
+          //   let obj = {};
+          //   let skill = sal[i].id;
+          //   obj["name"] = skill;
+          //   let output = sal[i].value;
+          //   obj["percentage"] = output;
+          //   arr.push(obj);
+          // }
+          // console.log(arr);
+
+          // PROJECTS
+          // var Pro = document.querySelectorAll('input[name="pname"]');
+          // var des = document.querySelectorAll('textarea[name="tarea"]');
+          // var arr = [];
+
+          // for (var i = 0; i < Pro.length; i++) {
+          //   let obj = {};
+          //   let pname = Pro[i].value;
+          //   if (pname.trim() == "") {
+          //     continue;
+          //   }
+          //   let tarea = des[i].value;
+          //   obj["project"] = pname;
+          //   obj["description"] = tarea;
+          //   arr.push(obj);
+          // }
+
+          // var des = document.querySelectorAll('textarea[name="tarea"]');
+          // for (var i = 0; i < des.length; i++) {
+          //   let tarea = des[i].value;
+          //   obj = arr[i];
+          //   obj["description"] = tarea;
+          // }
+          //console.log(arr);
+
+          // VALIDATION
+        } else {
+          display_errors();
+        }
+      }
+
+      //INPUT FIELDS VALIDATION
+
+      function validate() {
+        let v1 = validateTextField();
+        let v2 = validateEmail();
+        return v1 && v2;
+      }
+
+      var error_array;
+      function validateTextField() {
+        var inputIds = ["name", "contact", "language"];
+        error_array = [];
+
+        let valid_fields = true;
+
+        for (var i = 0; i < inputIds.length; i++) {
+          var hasValue = document.getElementById(inputIds[i]).value;
+          if (!hasValue.trim()) {
+            error_array.push(inputIds[i] + " is invalid");
+            if (valid_fields) {
+              valid_fields = false;
+            }
+          }
+        }
+        return valid_fields;
+      }
+
+      function display_errors() {
+        var list = document.createElement("ul");
+        // for loop error_array
+        for (var i = 0; i < error_array.length; i++) {
+          var elm = document.createElement("li");
+
+          let new_elm = document.createElement("span");
+          new_elm.innerText = error_array[i]; // error message
+          elm.appendChild(new_elm);
+          list.appendChild(elm);
+        }
+        // elm.setAttribute("id", "hasValue");
+
+        // list item add in ul
+        // end for loop
+        // ul add in document;
+
+        document.body.appendChild(list);
+        // errors.appendChild(list);
+        // console.log("errors");
+      }
+
+      //EMAIL VALIDATION
+
+      function validateEmail() {
+        var mail = document.getElementById("email");
+        var regx = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+
+        let obj = {};
+        if (regx.test(mail.value)) {
+          //alert("valid Email");
+          return true;
+        } else {
+          //alert("invalid Email");
+          error_array.push("Email is invalid");
+        }
+      }
+
+      // function validateRadio() {
+      //   //var value = document.querySelector('input[name="links"]');
+      //   var value = document.getElementById("ip").value.trim();
+      //   var radios = document.querySelectorAll('input[name="links"]');
+      //   let rvalues = [];
+      //   radios.forEach(function (radio) {
+      //     rvalues.push(radio.value);
+      //   });
+
+      //   if (value == "") {
+      //     error_array.push("link is invalid");
+      //   } else if (rvalues.indexOf(value) != -1) {
+      //     error_array.push("link is invalid");
+      //   }
+
+      //   // else if (value == elem.value) {
+      //   //   error_array.push("link is invalid");
+      //   // }
+      //   else {
+      //     return true;
+      //   }
+      // }
+
+      //SKILLS
+      function getSkills() {
+        let skillsArr = [];
+        var sal = document.querySelectorAll('select[name="expertise"]');
+
+        for (var i = 0; i < sal.length; i++) {
+          let obj = {};
+          let skill = sal[i].id;
+          obj["name"] = skill;
+          let output = sal[i].value;
+          obj["percentage"] = output;
+          skillsArr.push(obj);
+        }
+        return skillsArr;
+        //cvData.skills = skillsArr;
+      }
+
+      //PROJECTS
+      function getProjects(cvData) {
+        let projectArr = [];
+        var Pro = document.querySelectorAll('input[name="pname"]');
+        var des = document.querySelectorAll('textarea[name="tarea"]');
+        for (var i = 0; i < Pro.length; i++) {
+          let obj = {};
+          let pname = Pro[i].value;
+          if (pname.trim() == "") {
+            continue;
+          }
+          let tarea = des[i].value;
+          obj["project"] = pname;
+          obj["description"] = tarea;
+          projectArr.push(obj);
+        }
+        // var des = document.querySelectorAll('textarea[name="tarea"]');
+        // for (var i = 0; i < des.length; i++) {
+        //   let tarea = des[i].value;
+        //   obj = projectArr[i];
+        //   obj["description"] = tarea;
+        // }
+        return projectArr;
+        //console.log(projectArr);
+      }
+
+      //EDUCATION
+      function getEducations(cvData) {
+        let EduArr = [];
+        var education = document.querySelectorAll('input[name="dname"]');
+        var start_date = document.querySelectorAll('input[name="sdate"]');
+        var end_date = document.querySelectorAll('input[name="edate"]');
+        var institute = document.querySelectorAll('input[name="iname"]');
+
+        for (var i = 0; i < education.length; i++) {
+          let obj = {};
+          let dname = education[i].value;
+          if (dname.trim() == "") {
+            continue;
+          }
+
+          let sdate = start_date[i].value;
+          let edate = end_date[i].value;
+          let Iname = institute[i].value;
+
+          obj["degreeName"] = dname;
+          obj["startDate"] = sdate;
+          obj["endDate"] = edate;
+          obj["institute"] = Iname;
+
+          EduArr.push(obj);
+        }
+        return EduArr;
+      }
+
+      //EXPERIENCE
+      function getExperience(cvData) {
+        let ExpArr = [];
+        var company = document.querySelectorAll('input[name="cname"]');
+        var start_date = document.querySelectorAll('input[name="sdate"]');
+        var end_date = document.querySelectorAll('input[name="edate"]');
+        var job_description = document.querySelectorAll('input[name="jname"]');
+
+        for (var i = 0; i < company.length; i++) {
+          let obj = {};
+          let cname = company[i].value;
+          if (cname.trim() == "") {
+            continue;
+          }
+
+          let sdate = start_date[i].value;
+          let edate = end_date[i].value;
+          let jname = job_description[i].value;
+
+          obj["companyName"] = cname;
+          obj["startDate"] = sdate;
+          obj["endDate"] = edate;
+          obj["jobdescription"] = jname;
+
+          ExpArr.push(obj);
+        }
+        return ExpArr;
+      }
+
+      // LINKS
+      function isValidURL(url) {
+        var pattern =
+          /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+        if (pattern.test(url)) {
+          return true;
+        }
+        error_array.push("Url is invalid");
+        return false;
+      }
+
+      var all_links = [];
+      function links_add() {
+        var linksInput = document.getElementById("ip").value;
+        // console.log(linksInput);
+        if (linksInput.trim() == "") {
+          return;
+        }
+        let L_display = document.getElementById("links_display");
+        let linkArr = linksInput.split(",");
+        for (let i = 0; i < linkArr.length; i++) {
+          if (!isValidURL(linkArr[i])) {
+            continue;
+          }
+          // unique entry check
+          let para = document.createElement("p");
+          para.innerText = linkArr[i];
+          L_display.append(para);
+          all_links.push(linkArr[i]);
+        }
+      }
+
+      //Skills PERCENTAGE
+      function skills_add() {
+        var skillsInput = document.getElementById("skills").value;
+        if (skillsInput.trim() == "") {
+          return;
+        }
+        var skills = convert_string_to_array(skillsInput);
+        let skd = document.getElementById("skills_display");
+        for (let i = 0; i < skills.length; i++) {
+          if (document.getElementById(skills[i])) {
+            continue;
+          }
+
+          let skilContainer = document.createElement("div");
+          skilContainer.classList.add("d-flex", "align-items-center", "my-2");
+          let span = document.createElement("label");
+          span.classList.add("form-label", "mb-0", "me-2", "text-success");
+          span.innerHTML = skills[i];
+          var new_sl = document.createElement("select");
+          new_sl.classList.add("form-select");
+          new_sl.setAttribute("id", skills[i]);
+          new_sl.setAttribute("name", "expertise");
+          for (let k = 1; k <= 5; k++) {
+            option_helper(new_sl, k * 20);
+          }
+          skilContainer.append(span);
+          skilContainer.append(new_sl);
+          skd.appendChild(skilContainer);
+        }
+      }
+
+      // REMOVE BUTTON
+      var del = document.querySelector("#remove");
+      del.addEventListener("click", (event) => {
+        event.preventDefault();
+        let btn = event.target;
+        let skillsDiv = document.getElementById("skills_display");
+        /* skillsDiv.childNodes.forEach((node) => {
+                      node.remove();
+                    }); */
+        skillsDiv.innerHTML = "";
+      });
+
+      function option_helper(sel, val) {
+        let option = document.createElement("option");
+        option.setAttribute("value", val);
+        option.innerHTML = val + "%";
+        sel.appendChild(option);
+        document.getElementById("skills").value = "";
+      }
+
+      function convert_string_to_array(skillsInput) {
+        let skills = skillsInput.split(",");
+        return skills;
+      }
+
+      function template_design_1(cvData) {
+        console.log(cvData);
+        let cv_section = document.getElementById("cv");
+        cv_section.innerHTML = "";
+
+        let section_left = document.createElement("section");
+        section_left.setAttribute("id", "left_1");
+        //section_left.setAttribute("class", "col-4 bg-dark text-light p-0");
+        section_left.classList.add("col-4", "bg-dark", "text-light", "p-0");
+
+        let sub_head_1 = document.createElement("div");
+        //sub_head_1.setAttribute("class", "sub-head");
+        sub_head_1.classList.add("sub-head");
+
+        let name = document.createElement("h2");
+        name.innerText = cvData.name;
+        let designation = document.createElement("p");
+        designation.innerText = "";
+
+        sub_head_1.appendChild(name);
+        sub_head_1.appendChild(designation);
+        section_left.appendChild(sub_head_1);
+
+        let h_4_1 = document.createElement("h4");
+        //h_4_1.setAttribute("class", "left-sidebar-secondary-heading");
+        h_4_1.classList.add("left-sidebar-secondary-heading");
+        h_4_1.innerText = "Personal info";
+
+        let sub_head_2 = document.createElement("div");
+        //sub_head_2.setAttribute("class", "sub-head");
+        sub_head_2.classList.add("sub-head");
+
+        let span_1 = document.createElement("span");
+        span_1.innerText = "Phone";
+
+        let p_1 = document.createElement("p");
+        //p_1.setAttribute("class", "fw-lighter");
+        p_1.classList.add("fw-lighter");
+        p_1.innerText = cvData.contact;
+
+        section_left.appendChild(h_4_1);
+        sub_head_2.appendChild(span_1);
+        sub_head_2.appendChild(p_1);
+        section_left.appendChild(sub_head_2);
+
+        let sub_head_3 = document.createElement("div");
+        //sub_head_3.setAttribute("class", "sub-head");
+        sub_head_3.classList.add("sub-head");
+
+        let span_2 = document.createElement("span");
+        span_2.innerText = "Email";
+
+        let P_2 = document.createElement("p");
+        //p_2.setAttribute("class", "fw-lighter");
+        P_2.classList.add("fw-lighter");
+        P_2.innerText = cvData.email;
+
+        sub_head_3.appendChild(span_2);
+        sub_head_3.appendChild(P_2);
+        section_left.appendChild(sub_head_3);
+
+        let sub_head_4 = document.createElement("div");
+        //sub_head_4.setAttribute("class", "sub-head");
+        sub_head_4.classList.add("sub-head");
+
+        let span_3 = document.createElement("span");
+        span_3.innerText = "linkedin";
+
+        let P_3 = document.createElement("p");
+        //p_3.setAttribute("class", "fw-lighter");
+        P_3.classList.add("fw-lighter");
+        P_3.innerText = cvData.links;
+
+        sub_head_4.appendChild(span_3);
+        sub_head_4.appendChild(P_3);
+        section_left.appendChild(sub_head_4);
+
+        let Skills = document.createElement("h4");
+        // h_4_2.setAttribute("class", "left-sidebar-secondary-heading");
+        Skills.classList.add("left-sidebar-secondary-heading");
+        Skills.innerText = "Skills";
+        section_left.appendChild(Skills);
+
+        cvData.skills.forEach((skill) => {
+          let skillContainer = document.createElement("div");
+          skillContainer.classList.add("sub-head");
+
+          let skillName = document.createElement("p");
+          skillName.classList.add("fw-lighter");
+          skillName.innerText = skill.name;
+
+          let skillProgressBar = document.createElement("div");
+          skillProgressBar.classList.add("progress");
+
+          let skillProgressValue = document.createElement("div");
+          skillProgressValue.classList.add("progress-bar");
+          skillProgressValue.style.width = skill.percentage + "%";
+
+          skillContainer.appendChild(skillName);
+          skillProgressBar.appendChild(skillProgressValue);
+          skillContainer.appendChild(skillProgressBar);
+
+          section_left.appendChild(skillContainer);
+        });
+
+        let Language = document.createElement("h4");
+        Language.classList.add("left-sidebar-secondary-heading");
+        Language.innerText = "Language";
+        section_left.appendChild(Language);
+
+        let LanguageContainer = document.createElement("div");
+        Language.classList.add("sub-head");
+
+        let LanguageList = document.createElement("ul");
+        cvData.language.forEach((lang) => {
+          let languageElem = document.createElement("li");
+          languageElem.innerText = lang;
+          LanguageList.appendChild(languageElem);
+        });
+
+        LanguageContainer.appendChild(LanguageList);
+        section_left.appendChild(LanguageContainer);
+
+        //SECTION RIGHT
+
+        let section_right = document.createElement("section");
+        section_right.setAttribute("id", "right_1");
+        //section_right.setAttribute("class", "col-8");
+        section_right.classList.add("col-8");
+
+        let d_1 = document.createElement("div");
+
+        let pa_1 = document.createElement("p");
+        pa_1.classList.add("fw-lighter");
+        pa_1.innerText = cvData.objective;
+
+        d_1.appendChild(pa_1);
+        section_right.appendChild(d_1);
+
+        let hr_1 = document.createElement("hr");
+        section_right.appendChild(hr_1);
+
+        let head_1 = document.createElement("h4");
+        head_1.innerText = "Projects";
+        let hr_2 = document.createElement("hr");
+        section_right.appendChild(head_1);
+        section_right.appendChild(hr_2);
+
+        cvData.Projects.forEach((project) => {
+          let projectsContainer = document.createElement("div");
+          projectsContainer.classList.add("exp");
+
+          let projectTitle = document.createElement("div");
+          let projectDescription = document.createElement("div");
+          let porjectName = document.createElement("p");
+          porjectName.innerText = project.project;
+          let projectExplaination = document.createElement("p");
+          projectExplaination.classList.add("fw-lighter");
+          projectExplaination.innerText = project.description;
+
+          projectTitle.appendChild(porjectName);
+          projectsContainer.appendChild(projectTitle);
+
+          projectDescription.appendChild(projectExplaination);
+          projectsContainer.appendChild(projectDescription);
+
+          section_right.appendChild(projectsContainer);
+        });
+
+        let hr_3 = document.createElement("hr");
+        section_right.appendChild(hr_3);
+
+        let head_2 = document.createElement("h4");
+        head_2.innerText = "Education";
+        let hr_4 = document.createElement("hr");
+        section_right.appendChild(head_2);
+        section_right.appendChild(hr_4);
+
+        cvData.Educations.forEach((Education) => {
+          let educationContainer = document.createElement("div");
+          educationContainer.classList.add("exp");
+
+          let Dates = document.createElement("div");
+          let Name = document.createElement("div");
+          let sDate = document.createElement("p");
+          sDate.classList.add("fw-lighter");
+          sDate.innerText = Education.startDate;
+          let eDate = document.createElement("p");
+          eDate.classList.add("fw-lighter");
+          eDate.innerText = Education.endDate;
+          let DName = document.createElement("p");
+          DName.innerText = Education.degreeName;
+          let Institute_N = document.createElement("p");
+          Institute_N.innerText = Education.institute;
+
+          Dates.appendChild(sDate);
+          Dates.appendChild(eDate);
+          educationContainer.appendChild(Dates);
+
+          Name.appendChild(DName);
+          Name.appendChild(Institute_N);
+          educationContainer.appendChild(Name);
+
+          section_right.appendChild(educationContainer);
+        });
+
+        let Exp_head = document.createElement("h4");
+        Exp_head.innerText = "Experience";
+        let hr_5 = document.createElement("hr");
+        section_right.appendChild(Exp_head);
+        section_right.appendChild(hr_5);
+
+        cvData.Experiences.forEach((Experience) => {
+          let experienceContainer = document.createElement("div");
+          experienceContainer.classList.add("exp");
+
+          let Dates = document.createElement("div");
+          let Name = document.createElement("div");
+          let sDate = document.createElement("p");
+          sDate.classList.add("fw-lighter");
+          sDate.innerText = Experience.startDate;
+          let eDate = document.createElement("p");
+          eDate.classList.add("fw-lighter");
+          eDate.innerText = Experience.endDate;
+          let CName = document.createElement("p");
+          CName.innerText = Experience.companyName;
+          let jobDescription = document.createElement("p");
+          jobDescription.innerText = Experience.jobdescription;
+
+          Dates.appendChild(sDate);
+          Dates.appendChild(eDate);
+          experienceContainer.appendChild(Dates);
+
+          Name.appendChild(CName);
+          Name.appendChild(jobDescription);
+          experienceContainer.appendChild(Name);
+
+          section_right.appendChild(experienceContainer);
+        });
+
+        cv_section.appendChild(section_left);
+        cv_section.appendChild(section_right);
+      }
+
+      (function () {
+        initRender();
+      })();
+    </script>
+  </body>
+</html>
