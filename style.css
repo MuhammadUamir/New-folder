@@ -82,11 +82,26 @@
 .lan {
   font-weight: bold;
 }
-#submit {
-  margin-top: 8%;
-  margin-left: 30%;
+#degreename {
+  font-weight: 500;
 }
-
+.errors {
+  margin-left: 46rem;
+}
+.form-check-input {
+  position: absolute;
+}
+input[type="radio"] + label > img {
+  width: 170px;
+  height: 200px;
+}
+#cvphoto {
+  width: 120px;
+  height: 120px;
+}
+.pic {
+  padding-right: 1rem;
+}
 /* DUMMY CV */
 #left_1 {
   font-size: large;
@@ -114,4 +129,7 @@
   display: inline-block;
   font-size: large;
   width: 69%;
+}
+.para {
+  font-size: 14px;
 }

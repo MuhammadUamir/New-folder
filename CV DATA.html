@@ -38,7 +38,7 @@
       }
       .exp {
         display: grid;
-        grid-template-columns: 2fr 5fr;
+        grid-template-columns: 2fr 2fr 2fr;
       }
       #Link_label {
         margin-top: 1rem;
@@ -61,6 +61,24 @@
               class="form-control"
               id="name"
               placeholder="Name"
+            />
+          </div>
+
+          <!-- PICTURE -->
+
+          <div class="name mb-3">
+            <label for="profile" class="form-label"
+              >Profile
+              <img class="img img-fluid rounded-circle" src="" id="photo"
+            /></label>
+
+            <input
+              type="file"
+              class="form-control"
+              id="profile"
+              placeholder="photo"
+              accept="image/*"
+              onchange="updatePhoto('id','photo')"
             />
           </div>
 
@@ -150,8 +168,8 @@
           </div>
         </section>
 
-        <!-- PROJECTS -->
         <section class="col-md-8">
+          <!-- PROJECTS -->
           <div class="card">
             <div class="card-header fw-bold">Project</div>
             <div id="add_p" class="card-body"></div>
@@ -212,24 +230,69 @@
               value=""
             />
           </div>
-
-          <!-- SUBMIT BUTTON -->
-
+        </section>
+        <!-- SUBMIT BUTTON -->
+        <div class="text-center">
           <button
             onclick="save_form()"
-            class="btn btn-primary"
+            class="btn btn-primary mt-3"
             id="submit"
             type="button"
             value="submit"
           >
             Submit
           </button>
-        </section>
+        </div>
+        <div id="errors"></div>
       </div>
 
-      <div id="errors"></div>
-
       <div id="cv" class="row m-2"></div>
+    </div>
+    <!-- CV OPTIONS  -->
+    <div>
+      <div class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="inlineRadioOptions"
+          id="inlineRadio1"
+          value="option1"
+          checked
+        />
+        <label for="inlineRadio1"
+          ><img
+            src="https://www.coolfreecv.com/images/cv_templates_with_photo.jpg"
+            alt=""
+        /></label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="inlineRadioOptions"
+          id="inlineRadio2"
+          value="option1"
+        />
+        <label for="inlineRadio2"
+          ><img
+            src="https://www.coolfreecv.com/images/cv_templates_with_photo.jpg"
+            alt=""
+        /></label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="inlineRadioOptions"
+          id="inlineRadio3"
+          value="option1"
+        />
+        <label for="inlineRadio3"
+          ><img
+            src="https://www.coolfreecv.com/images/cv_templates_with_photo.jpg"
+            alt=""
+        /></label>
+      </div>
     </div>
 
     <script>
@@ -240,6 +303,30 @@
         add_education();
         add_project();
         add_experience();
+      }
+
+      // profile.addEventListener("change", updatePhoto);
+
+      function updatePhoto(type, name) {
+        let profile = document.getElementById("profile");
+        let photos;
+        if (type == "id") {
+          let image = document.getElementById(name);
+          photos = [image];
+        }
+        if (type == "class") {
+          photos = document.getElementsByClassName(name);
+        }
+        let file = profile.files;
+        console.log(photos);
+        for (var i = 0; i < photos.length; i++) {
+          if (file.length > 0) {
+            photos[i].classList.remove("d-none");
+            photos[i].setAttribute("src", URL.createObjectURL(file[0]));
+          } else {
+            photos[i].classList.add("d-none");
+          }
+        }
       }
 
       // var links = document.querySelectorAll('input[name="links"]');
@@ -276,7 +363,16 @@
         //console.log(langStr);
       }
 
-      //EDUCATION
+      // PROFILE PICTURE
+      let loadFile = function (event) {
+        let pic = document.getElementById("profile");
+        pic.src = URL.createObjectURL(event.target.files[0]);
+
+        // pic.files[0];
+
+        // if(file.length > 0);
+      };
+      // EDUCATION-ELEMENTS
       var add_e = document.getElementById("add_E");
 
       function add_education() {
@@ -311,7 +407,7 @@
         new_sd.setAttribute("type", "date");
         new_sd.setAttribute("name", "sdate");
         new_sd.setAttribute("id", "sdate_" + education_id_number);
-        new_sd.setAttribute("onclick", "setDate()");
+        //new_sd.setAttribute("onclick", "setDate()");
 
         let start_date = document.createElement("label");
         start_date.classList.add("form-label");
@@ -330,7 +426,7 @@
         new_ed.setAttribute("type", "date");
         new_ed.setAttribute("name", "edate");
         new_ed.setAttribute("id", "edate_" + education_id_number);
-        new_ed.setAttribute("onclick", "setDate()");
+        //new_ed.setAttribute("onclick", "setDate()");
 
         let end_date = document.createElement("label");
         end_date.classList.add("form-label");
@@ -366,56 +462,56 @@
 
       // DATE VALIDATION
 
-      function getEndDate() {
-        var todayDate = new Date();
-        var month = todayDate.getMonth() + 1;
-        var year = todayDate.getFullYear();
-        var tdate = todayDate.getDate();
-        if (month < 10) {
-          month = "0" + month;
-        }
-        if (tdate < 10) {
-          tdate = "0" + tdate;
-        }
-        var maxDate = year + "-" + month + "-" + tdate;
-        document.getElementById("edate_").setAttribute("max", maxDate);
-      }
+      // function getEndDate() {
+      //   var todayDate = new Date();
+      //   var month = todayDate.getMonth() + 1;
+      //   var year = todayDate.getFullYear();
+      //   var tdate = todayDate.getDate();
+      //   if (month < 10) {
+      //     month = "0" + month;
+      //   }
+      //   if (tdate < 10) {
+      //     tdate = "0" + tdate;
+      //   }
+      //   var maxDate = year + "-" + month + "-" + tdate;
+      //   document.getElementById("edate_").setAttribute("max", maxDate);
+      // }
 
-      function getDates(start_date, end_date) {
-        let sd = new Date(start_date);
-        let ed = new Date(end_date);
+      // function getDates(start_date, end_date) {
+      //   let sd = new Date(start_date);
+      //   let ed = new Date(end_date);
 
-        if (start_date < end_date) {
-          return true;
-        }
-        return false;
-      }
+      //   if (start_date < end_date) {
+      //     return true;
+      //   }
+      //   return false;
+      // }
 
-      document.addEventListener("click", function (e) {
-        console.log(e.target);
-        console.log(e.target.dataset);
-        if (e.target.dataset && e.target.id == "edate_" + e.target.dataset.id) {
-          let elem = e.target;
-          let start_elem = document.getElementById(
-            "sdate_" + e.target.dataset.id
-          );
-          if (
-            start_elem.value !== undefined &&
-            start_elem.value !== null &&
-            start_elem.value !== ""
-          ) {
-            if (
-              getDates(start_elem.value, elem.value) <
-              getEndDate(e.target.id, elem.value)
-            ) {
-              return true;
-            }
-            return false;
-          }
-        }
-      });
+      // document.addEventListener("click", function (e) {
+      //   console.log(e.target);
+      //   console.log(e.target.dataset);
+      //   if (e.target.dataset && e.target.id == "edate_" + e.target.dataset.id) {
+      //     let elem = e.target;
+      //     let start_elem = document.getElementById(
+      //       "sdate_" + e.target.dataset.id
+      //     );
+      //     if (
+      //       start_elem.value !== undefined &&
+      //       start_elem.value !== null &&
+      //       start_elem.value !== ""
+      //     ) {
+      //       if (
+      //         getDates(start_elem.value, elem.value) <
+      //         getEndDate(e.target.id, elem.value)
+      //       ) {
+      //         return true;
+      //       }
+      //       return false;
+      //     }
+      //   }
+      // });
 
-      // EXPERIENCE
+      // EXPERIENCE-ELEMENTS
 
       var Exp = document.getElementById("add_exp");
 
@@ -502,7 +598,7 @@
         experience_id_number++;
       }
 
-      // PROJECTS
+      // PROJECTS-ELEMENTS
 
       function add_project() {
         var p = document.getElementById("add_p");
@@ -551,7 +647,7 @@
         project_id_number++;
       }
 
-      // skills
+      // skills-ELEMENTS
       var add_s = document.getElementById("skills_area");
 
       function add() {
@@ -574,6 +670,7 @@
         add_s.appendChild(M_div);
       }
 
+      //SUBMIT BUTTON
       function save_form() {
         if (validate()) {
           var cVData = {
@@ -581,7 +678,7 @@
             contact: document.getElementById("contact").value,
             email: document.getElementById("email").value,
             objective: document.getElementById("objective").value,
-            links: document.getElementById("ip").value,
+            links: all_links,
             language: getLangValue(),
           };
 
@@ -595,8 +692,9 @@
 
           console.log(cVData);
 
-          template_design_1(cVData);
-
+          template_design_2(cVData);
+          //template_design_1(cVData);
+          updatePhoto("id", "cvPhoto");
           // LINK
 
           // EDUCATION DATA
@@ -703,6 +801,9 @@
       }
 
       function display_errors() {
+        var errors_div = document.getElementById("errors");
+        errors_div.innerHTML = "";
+        errors_div.classList.add("errors", "text-danger");
         var list = document.createElement("ul");
         // for loop error_array
         for (var i = 0; i < error_array.length; i++) {
@@ -712,6 +813,7 @@
           new_elm.innerText = error_array[i]; // error message
           elm.appendChild(new_elm);
           list.appendChild(elm);
+          errors_div.append(list);
         }
         // elm.setAttribute("id", "hasValue");
 
@@ -719,7 +821,7 @@
         // end for loop
         // ul add in document;
 
-        document.body.appendChild(list);
+        //document.body.appendChild(errors_div);
         // errors.appendChild(list);
         // console.log("errors");
       }
@@ -739,29 +841,6 @@
           error_array.push("Email is invalid");
         }
       }
-
-      // function validateRadio() {
-      //   //var value = document.querySelector('input[name="links"]');
-      //   var value = document.getElementById("ip").value.trim();
-      //   var radios = document.querySelectorAll('input[name="links"]');
-      //   let rvalues = [];
-      //   radios.forEach(function (radio) {
-      //     rvalues.push(radio.value);
-      //   });
-
-      //   if (value == "") {
-      //     error_array.push("link is invalid");
-      //   } else if (rvalues.indexOf(value) != -1) {
-      //     error_array.push("link is invalid");
-      //   }
-
-      //   // else if (value == elem.value) {
-      //   //   error_array.push("link is invalid");
-      //   // }
-      //   else {
-      //     return true;
-      //   }
-      // }
 
       //SKILLS
       function getSkills() {
@@ -876,6 +955,14 @@
       }
 
       var all_links = [];
+
+      function getUnique(array) {
+        const unique = array.filter((value, index) => {
+          return array.indexOf(value) === index;
+        });
+        return unique;
+      }
+
       function links_add() {
         var linksInput = document.getElementById("ip").value;
         // console.log(linksInput);
@@ -883,17 +970,47 @@
           return;
         }
         let L_display = document.getElementById("links_display");
+        L_display.innerHTML = "";
+
         let linkArr = linksInput.split(",");
         for (let i = 0; i < linkArr.length; i++) {
           if (!isValidURL(linkArr[i])) {
             continue;
           }
-          // unique entry check
-          let para = document.createElement("p");
-          para.innerText = linkArr[i];
-          L_display.append(para);
           all_links.push(linkArr[i]);
+          //unique entry check in array
+          // const unique = all_links.filter((value, index) => {
+          //   return all_links.indexOf(value) === index;
+          // });
+          // console.log(unique);
         }
+        all_links = getUnique(all_links);
+        for (let i = 0; i < all_links.length; i++) {
+          let para = document.createElement("a");
+          para.classList.add(
+            "bg-light",
+            "rounded",
+            "px-1",
+            "m-1",
+            "my-2",
+            "para",
+            "d-block"
+          );
+          para.innerText = all_links[i];
+          para.setAttribute("href", all_links[i]);
+          para.setAttribute("target", "_blank");
+          L_display.append(para);
+        }
+
+        // const unique = linkArr.filter((value, index) => {
+        //   return linkArr.indexOf(value) === index;
+        // });
+        // for (var i = 0; i < unique.length; i++) {
+        //linkArr.push(unique);
+        //console.log(unique);
+        //return L_display;
+        //all_links.push(unique);
+        //}
       }
 
       //Skills PERCENTAGE
@@ -962,9 +1079,18 @@
         //section_left.setAttribute("class", "col-4 bg-dark text-light p-0");
         section_left.classList.add("col-4", "bg-dark", "text-light", "p-0");
 
+        let introContainer = document.createElement("div");
+        introContainer.classList.add("sub-head");
+
         let sub_head_1 = document.createElement("div");
+        sub_head_1.classList.add(
+          "sub-head ",
+          "d-flex",
+          "align-items-center",
+          "p-2"
+        );
         //sub_head_1.setAttribute("class", "sub-head");
-        sub_head_1.classList.add("sub-head");
+        //sub_head_1.classList.add("sub-head");
 
         let name = document.createElement("h2");
         name.innerText = cvData.name;
@@ -973,7 +1099,19 @@
 
         sub_head_1.appendChild(name);
         sub_head_1.appendChild(designation);
-        section_left.appendChild(sub_head_1);
+        introContainer.appendChild(sub_head_1);
+
+        let picContainer = document.createElement("div");
+        picContainer.classList.add("pic");
+        let image = document.createElement("img");
+        image.classList.add("img", "img-fluid", "rounded-circle");
+        image.setAttribute("id", "cvPhoto");
+        image.innerText = cvData.profile;
+
+        picContainer.appendChild(image);
+        introContainer.appendChild(picContainer);
+
+        section_left.appendChild(introContainer);
 
         let h_4_1 = document.createElement("h4");
         //h_4_1.setAttribute("class", "left-sidebar-secondary-heading");
@@ -1018,7 +1156,7 @@
         sub_head_4.classList.add("sub-head");
 
         let span_3 = document.createElement("span");
-        span_3.innerText = "linkedin";
+        span_3.innerText = "Links";
 
         let P_3 = document.createElement("p");
         //p_3.setAttribute("class", "fw-lighter");
@@ -1135,25 +1273,34 @@
           educationContainer.classList.add("exp");
 
           let Dates = document.createElement("div");
+          Dates.classList.add("d-flex", "align-items-center");
           let Name = document.createElement("div");
+          Name.classList.add("d-flex", "align-items-center");
           let sDate = document.createElement("p");
           sDate.classList.add("fw-lighter");
-          sDate.innerText = Education.startDate;
-          let eDate = document.createElement("p");
-          eDate.classList.add("fw-lighter");
-          eDate.innerText = Education.endDate;
+          sDate.innerText = Education.startDate + " - " + Education.endDate;
+          // let eDate = document.createElement("p");
+          // eDate.classList.add("fw-lighter");
+          // eDate.innerText = Education.endDate;
           let DName = document.createElement("p");
+          DName.setAttribute("id", "degreename");
           DName.innerText = Education.degreeName;
+
+          let I_n = document.createElement("div");
+          I_n.classList.add("d-flex", "align-items-center");
           let Institute_N = document.createElement("p");
+          Institute_N.classList.add("fw-lighter");
           Institute_N.innerText = Education.institute;
 
           Dates.appendChild(sDate);
-          Dates.appendChild(eDate);
           educationContainer.appendChild(Dates);
 
           Name.appendChild(DName);
           Name.appendChild(Institute_N);
           educationContainer.appendChild(Name);
+
+          I_n.appendChild(Institute_N);
+          educationContainer.appendChild(I_n);
 
           section_right.appendChild(educationContainer);
         });
@@ -1172,17 +1319,17 @@
           let Name = document.createElement("div");
           let sDate = document.createElement("p");
           sDate.classList.add("fw-lighter");
-          sDate.innerText = Experience.startDate;
-          let eDate = document.createElement("p");
-          eDate.classList.add("fw-lighter");
-          eDate.innerText = Experience.endDate;
+          sDate.innerText = Experience.startDate + "," + Experience.endDate;
+          // let eDate = document.createElement("p");
+          // eDate.classList.add("fw-lighter");
+          // eDate.innerText = Experience.endDate;
           let CName = document.createElement("p");
           CName.innerText = Experience.companyName;
           let jobDescription = document.createElement("p");
+          jobDescription.classList.add("fw-lighter");
           jobDescription.innerText = Experience.jobdescription;
 
           Dates.appendChild(sDate);
-          Dates.appendChild(eDate);
           experienceContainer.appendChild(Dates);
 
           Name.appendChild(CName);
@@ -1196,9 +1343,241 @@
         cv_section.appendChild(section_right);
       }
 
+      //2ND TEMPLATE
+      function template_design_2(cvData) {
+        let cv_section2 = document.getElementById("cv");
+        cv_section2.innerHTML = "";
+
+        let section_top = document.createElement("section");
+        section_top.setAttribute("id", "top");
+        section_top.classList.add("bg-dark", "text-light", "d-flex");
+
+        //profile
+        let cv_pic = document.createElement("div");
+        cv_pic.classList.add("col-md-2");
+        let pic = document.createElement("img");
+        pic.classList.add("img", "img-fluid");
+        pic.setAttribute("id", "cvPhoto");
+        pic.innerText = cvData.profile;
+
+        cv_pic.appendChild(pic);
+        section_top.appendChild(cv_pic);
+
+        let infoContainer = document.createElement("div");
+        infoContainer.classList.add("col-md-5");
+
+        let nameContainer = document.createElement("div");
+        let name = document.createElement("h4");
+        name.innerText = cvData.name;
+        let designation = document.createElement("p");
+        //NAME
+        nameContainer.appendChild(name);
+        nameContainer.appendChild(designation);
+        infoContainer.appendChild(nameContainer);
+        //PHONE
+        let phoneContainer = document.createElement("div");
+        phoneContainer.setAttribute("id", "d-inline");
+        let phone = document.createElement("span");
+        phone.classList.add("badge", "bg-secondary");
+        phone.innerText = "Phone:";
+        let phoneNumber = document.createElement("p");
+        phoneNumber.innerText = cvData.contact;
+
+        phoneContainer.appendChild(phone);
+        phoneContainer.appendChild(phoneNumber);
+        infoContainer.appendChild(phoneContainer);
+
+        //EMAIL
+
+        let EmailContainer = document.createElement("div");
+        EmailContainer.setAttribute("id", "d-inline");
+        let email = document.createElement("span");
+        email.classList.add("badge", "bg-secondary");
+        email.innerText = "E-mail:";
+        let emailAddress = document.createElement("p");
+        emailAddress.innerText = cvData.email;
+
+        EmailContainer.appendChild(email);
+        EmailContainer.appendChild(emailAddress);
+        infoContainer.appendChild(EmailContainer);
+
+        //LINKS
+        let linkContainer = document.createElement("div");
+        let links = document.createElement("span");
+        links.classList.add("badge", "bg-secondary");
+        links.innerText = "Links:";
+        let linkAddress = document.createElement("p");
+        linkAddress.innerText = cvData.links;
+
+        linkContainer.appendChild(links);
+        linkContainer.appendChild(linkAddress);
+        infoContainer.appendChild(linkContainer);
+
+        section_top.appendChild(infoContainer);
+
+        let proInfo = document.createElement("div");
+        proInfo.classList.add("col-md-5");
+
+        //SKILLS
+        let skillContainer = document.createElement("div");
+        let skillsHeading = document.createElement("h6");
+        skillsHeading.innerText = "Skills";
+        skillContainer.appendChild(skillsHeading);
+
+        cvData.skills.forEach((skill) => {
+          // let proInfo = document.createElement("div");
+          // proInfo.classList.add("col-md-5");
+          let skills_display = document.createElement("p");
+          skills_display.classList.add("badge", "bg-secondary");
+          skills_display.innerText = skill.name;
+          skillContainer.appendChild(skills_display);
+        });
+
+        proInfo.appendChild(skillContainer);
+
+        //LNAGUAGE
+        let languageContainer = document.createElement("div");
+        let language = document.createElement("h6");
+        language.classList.add("pt-3");
+        language.innerText = "Languages";
+        let languageDisplay = document.createElement("p");
+        languageDisplay.innerText = cvData.language;
+
+        languageContainer.appendChild(language);
+        languageContainer.appendChild(languageDisplay);
+        proInfo.appendChild(languageContainer);
+
+        section_top.appendChild(proInfo);
+        cv_section2.appendChild(section_top);
+
+        //OBJECTIVE
+        let objectiveContainer = document.createElement("div");
+        objectiveContainer.classList.add("bg-light");
+        let objective = document.createElement("p");
+        objective.innerText = cvData.objective;
+
+        objectiveContainer.appendChild(objective);
+
+        cv_section2.appendChild(objectiveContainer);
+
+        let section_bottom = document.createElement("section");
+        section_bottom.classList.add("col-12");
+        section_bottom.setAttribute("id", "bottom");
+
+        //EXPERIENCE
+        let exp_head = document.createElement("div");
+        exp_head.classList.add("bg-light", "col-9", "offset-3", "mt-3");
+        let experience = document.createElement("h4");
+        experience.innerText = "Experience";
+
+        exp_head.appendChild(experience);
+        section_bottom.appendChild(exp_head);
+
+        cvData.Experiences.forEach((Experience) => {
+          let experienceContainer = document.createElement("div");
+          experienceContainer.classList.add("d-flex");
+
+          let Dates = document.createElement("div");
+          Dates.classList.add("bg-light", "col-md-3", "mt-3");
+          let sDate = document.createElement("p");
+          //sDate.classList.add("fw-lighter");
+          sDate.innerText = Experience.startDate + "," + Experience.endDate;
+          // let eDate = document.createElement("p");
+          // eDate.classList.add("fw-lighter");
+          // eDate.innerText = Experience.endDate;
+          let Name = document.createElement("div");
+          let CName = document.createElement("h6");
+          //let CName = document.createElement("p");
+          CName.innerText = Experience.companyName;
+          let jobDescription = document.createElement("p");
+          //jobDescription.classList.add("fw-lighter");
+          jobDescription.innerText = Experience.jobdescription;
+
+          Dates.appendChild(sDate);
+          experienceContainer.appendChild(Dates);
+
+          //Name.appendChild(job_title);
+          Name.appendChild(CName);
+          Name.appendChild(jobDescription);
+          experienceContainer.appendChild(Name);
+
+          section_bottom.appendChild(experienceContainer);
+        });
+
+        //EDUCATION
+        let edu_head = document.createElement("div");
+        edu_head.classList.add("bg-light", "col-9", "offset-3", "mt-2");
+        let education = document.createElement("h4");
+        education.innerText = "Education";
+
+        edu_head.appendChild(education);
+        section_bottom.appendChild(edu_head);
+
+        cvData.Educations.forEach((Education) => {
+          let educationContainer = document.createElement("div");
+          educationContainer.classList.add("d-flex");
+
+          let Dates = document.createElement("div");
+          Dates.classList.add("bg-light", "col-md-3", "mt-3");
+          let sDate = document.createElement("p");
+          //sDate.classList.add("fw-lighter");
+          sDate.innerText = Education.startDate + "," + Education.endDate;
+          // let eDate = document.createElement("p");
+          // eDate.classList.add("fw-lighter");
+          // eDate.innerText = Experience.endDate;
+          let Name = document.createElement("div");
+          let DName = document.createElement("p");
+          DName.innerText = Education.degreeName;
+          let instituteName = document.createElement("p");
+          //jobDescription.classList.add("fw-lighter");
+          instituteName.innerText = Education.institute;
+
+          Dates.appendChild(sDate);
+          educationContainer.appendChild(Dates);
+
+          Name.appendChild(DName);
+          Name.appendChild(instituteName);
+          educationContainer.appendChild(Name);
+
+          section_bottom.appendChild(educationContainer);
+        });
+
+        //PROJECTS
+        let project_head = document.createElement("div");
+        project_head.classList.add("bg-light", "col-9", "offset-3", "mt-2");
+        let project = document.createElement("h4");
+        project.innerText = "Projects";
+
+        project_head.appendChild(project);
+        section_bottom.appendChild(project_head);
+
+        cvData.Projects.forEach((project) => {
+          let projectsContainer = document.createElement("div");
+          projectsContainer.classList.add("col-md-9", "offset-md-3");
+
+          //let projectTitle = document.createElement("div");
+          //let projectDescription = document.createElement("div");
+          let porjectName = document.createElement("h6");
+          porjectName.innerText = project.project;
+          let projectExplaination = document.createElement("p");
+          //projectExplaination.classList.add("fw-lighter");
+          projectExplaination.innerText = project.description;
+
+          //projectTitle.appendChild(porjectName);
+          projectsContainer.appendChild(porjectName);
+
+          projectsContainer.appendChild(projectExplaination);
+          //projectsContainer.appendChild(projectDescription);
+
+          section_bottom.appendChild(projectsContainer);
+        });
+        cv_section2.appendChild(section_bottom);
+      }
+
       (function () {
         initRender();
       })();
     </script>
   </body>
 </html>
+<!-- sub-head d-flex justify-content-start align-items-center -->
